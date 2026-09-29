@@ -168,17 +168,8 @@ function updateMarket(){
     "<br><br><button class='reset' onclick='closeTrade()'>CLOSE TRADE</button>";
 } else {
   document.getElementById("openTrade").textContent="No open trade.";
-   }
-
-   document.getElementById("openTrade").innerHTML=
-   "<b>"+trade.type+"</b> at "+trade.entry.toFixed(2)+
-   "<br>Current price: "+price.toFixed(2)+
-   "<br>Unrealized P/L: <span class='"+(pnl>=0?"green":"red")+"'>"+
-   money(pnl)+"</span>"+
-   "<br><br><button class='reset' onclick='closeTrade()'>CLOSE TRADE</button>";
- }
+}  
 }
-
 function openTrade(type){
  if(trade){
    document.getElementById("status").textContent="Close the existing trade first.";
