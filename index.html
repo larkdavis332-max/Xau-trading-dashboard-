@@ -2,278 +2,1277 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>XAUUSD Paper Trading Dashboard</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#fff}
-header{padding:20px;background:#111936;border-bottom:1px solid #26304f}
-h1{margin:0;font-size:22px}
-small{color:#9aa6c5}
-.container{max-width:1100px;margin:auto;padding:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px}
-.card{background:#121a33;border:1px solid #26304f;border-radius:14px;padding:18px}
-.label{color:#9aa6c5;font-size:13px}
-.value{font-size:28px;font-weight:bold;margin-top:8px}
-button{border:0;border-radius:10px;padding:13px 18px;font-weight:bold;cursor:pointer;margin:5px}
-.buy{background:#168f5b;color:white}
-.sell{background:#c84b4b;color:white}
-.reset{background:#394463;color:white}
-input{width:100%;padding:12px;border-radius:8px;border:1px solid #394463;background:#0b1020;color:white;margin-top:7px}
-.signal{font-size:20px;font-weight:bold;margin-top:8px}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{padding:10px;text-align:left;border-bottom:1px solid #26304f;font-size:13px}
-.green{color:#43d17b}.red{color:#ff6b6b}.yellow{color:#ffd166}
-.notice{padding:12px;background:#191f35;border-radius:10px;color:#b9c3dd;margin-bottom:15px}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1020;
+  color: #fff;
+}
+
+header {
+  padding: 20px;
+  background: #111936;
+  border-bottom: 1px solid #26304f;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+small {
+  color: #9aa6c5;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #121a33;
+  border: 1px solid #26304f;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.label {
+  color: #9aa6c5;
+  font-size: 13px;
+}
+
+.value {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.buy {
+  background: #168f5b;
+  color: white;
+}
+
+.sell {
+  background: #c84b4b;
+  color: white;
+}
+
+.reset {
+  background: #394463;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #394463;
+  background: #0b1020;
+  color: white;
+  margin-top: 7px;
+}
+
+.signal {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #26304f;
+  font-size: 13px;
+}
+
+.green {
+  color: #43d17b;
+}
+
+.red {
+  color: #ff6b6b;
+}
+
+.yellow {
+  color: #ffd166;
+}
+
+.notice {
+  padding: 12px;
+  background: #191f35;
+  border-radius: 10px;
+  color: #b9c3dd;
+  margin-bottom: 15px;
+}
+
+.status {
+  color: #b9c3dd;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 19px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .value {
+    font-size: 25px;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
 </style>
 </head>
 
 <body>
+
 <header>
-<h1>📊 XAUUSD Paper Trading Dashboard</h1>
-<small>RSI + EMA practice dashboard — paper trading only</small>
+  <h1>📊 XAUUSD Paper Trading Dashboard</h1>
+  <small>RSI + EMA practice dashboard — paper trading only</small>
 </header>
 
 <div class="container">
 
-<div class="notice">
-⚠️ This dashboard is for learning and paper trading. It does not guarantee profitable trades and does not place real orders.
-</div>
+  <div class="notice">
+    ⚠️ This dashboard is for learning and paper trading.
+    It does not guarantee profitable trades and does not place real orders.
+  </div>
 
-<div class="grid">
+  <div class="grid">
 
-<div class="card">
-<div class="label">XAUUSD Price</div>
-<div class="value" id="price">2650.00</div>
-</div>
+    <div class="card">
+      <div class="label">XAUUSD Price</div>
+      <div class="value" id="price">2650.00</div>
+    </div>
 
-<div class="card">
-<div class="label">RSI (14)</div>
-<div class="value" id="rsi">50</div>
-</div>
+    <div class="card">
+      <div class="label">RSI (14)</div>
+      <div class="value" id="rsi">50.0</div>
+    </div>
 
-<div class="card">
-<div class="label">EMA 20</div>
-<div class="value" id="ema20">2648.00</div>
-</div>
+    <div class="card">
+      <div class="label">EMA 20</div>
+      <div class="value" id="ema20">2648.00</div>
+    </div>
 
-<div class="card">
-<div class="label">EMA 50</div>
-<div class="value" id="ema50">2645.00</div>
-</div>
+    <div class="card">
+      <div class="label">EMA 50</div>
+      <div class="value" id="ema50">2645.00</div>
+    </div>
 
-<div class="card">
-<div class="label">Market Signal</div>
-<div class="signal" id="signal">WAIT</div>
-</div>
+    <div class="card">
+      <div class="label">Market Signal</div>
+      <div class="signal yellow" id="signal">WAIT</div>
+    </div>
 
-<div class="card">
-<div class="label">Paper Balance</div>
-<div class="value" id="balance">$10,000</div>
-</div>
+    <div class="card">
+      <div class="label">Paper Balance</div>
+      <div class="value" id="balance">$10,000.00</div>
+    </div>
 
-</div>
+  </div>
 
-<br>
+  <br>
 
-<div class="card">
-<h3>Paper Trade</h3>
+  <div class="card">
+    <h3>💰 Paper Trade</h3>
 
-<label>Trade Amount</label>
-<input id="amount" type="number" value="100">
+    <label>Trade Amount</label>
 
-<br><br>
+    <input
+      id="amount"
+      type="number"
+      value="100"
+      min="1"
+      step="1"
+    >
 
-<button class="buy" onclick="openTrade('BUY')">BUY</button>
-<button class="sell" onclick="openTrade('SELL')">SELL</button>
-<button class="reset" onclick="resetAccount()">RESET ACCOUNT</button>
+    <br><br>
 
-<p id="status"></p>
-</div>
+    <button class="buy" onclick="openTrade('BUY')">
+      BUY
+    </button>
 
-<br>
+    <button class="sell" onclick="openTrade('SELL')">
+      SELL
+    </button>
 
-<div class="card">
-<h3>Open Trade</h3>
-<div id="openTrade">No open trade.</div>
-</div>
+    <button class="reset" onclick="resetAccount()">
+      RESET ACCOUNT
+    </button>
 
-<br>
+    <p id="status" class="status">
+      Ready for paper trading.
+    </p>
+  </div>
 
-<div class="card">
-<h3>Trade History</h3>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Entry</th>
-<th>Exit</th>
-<th>P/L</th>
-</tr>
-</thead>
-<tbody id="history"></tbody>
-</table>
-</div>
+  <br>
+
+  <div class="card">
+    <h3>📌 Open Trade</h3>
+
+    <div id="openTrade">
+      No open trade.
+    </div>
+  </div>
+
+  <br>
+
+  <div class="card">
+    <h3>📜 Trade History</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Entry</th>
+          <th>Exit</th>
+          <th>P/L</th>
+        </tr>
+      </thead>
+
+      <tbody id="history"></tbody>
+    </table>
+  </div>
 
 </div>
 
 <script>
-let price=2650;
-let rsi=50;
-let ema20=2648;
-let ema50=2645;
-let balance=10000;
-let trade=null;
-let history=[];
 
-function money(n){
- return "$"+n.toFixed(2);
+let price = 2650;
+let rsi = 50;
+let ema20 = 2648;
+let ema50 = 2645;
+
+let balance = 10000;
+
+let trade = null;
+
+let history = [];
+
+
+/* -------------------------
+   MONEY FORMAT
+------------------------- */
+
+function money(number) {
+  return "$" + number.toFixed(2);
 }
 
-function updateMarket(){
- price += (Math.random()-0.48)*4;
- rsi += (Math.random()-0.5)*5;
- rsi=Math.max(20,Math.min(80,rsi));
 
- ema20 += (price-ema20)*0.08;
- ema50 += (price-ema50)*0.03;
+/* -------------------------
+   MARKET UPDATE
+------------------------- */
 
- document.getElementById("price").textContent=price.toFixed(2);
- document.getElementById("rsi").textContent=rsi.toFixed(1);
- document.getElementById("ema20").textContent=ema20.toFixed(2);
- document.getElementById("ema50").textContent=ema50.toFixed(2);
- document.getElementById("balance").textContent=money(balance);
+function updateMarket() {
 
- let signal="WAIT";
- let cls="yellow";
+  // Simulated XAUUSD price movement
+  price += (Math.random() - 0.48) * 4;
 
-if(rsi<30 && ema20>ema50){
-  signal="BUY SETUP";
-  cls="green";
-}
-else if(rsi>70 && ema20<ema50){
-  signal="SELL SETUP";
-  cls="red";
-}
+  // Simulated RSI movement
+  rsi += (Math.random() - 0.5) * 5;
 
-document.getElementById("signal").textContent=signal;
-document.getElementById("signal").className="signal "+cls;
+  rsi = Math.max(20, Math.min(80, rsi));
 
-if(trade){
-  let diff=trade.type==="BUY"
-    ? price-trade.entry
-    : trade.entry-price;
 
-  let pnl=diff*trade.amount;
+  // EMA calculations
+  ema20 += (price - ema20) * 0.08;
 
-  document.getElementById("openTrade").innerHTML=
-    "<b>"+trade.type+"</b> at "+trade.entry.toFixed(2)+
-    "<br>Current price: "+price.toFixed(2)+
-    "<br>Unrealized P/L: <span class='"+(pnl>=0?"green":"red")+"'>"+
-    money(pnl)+"</span>"+
-    "<br><br><button class='reset' onclick='closeTrade()'>CLOSE TRADE</button>";
-if (trade) {
-    let diff = trade.type === "BUY"
-        ? price - trade.entry
-        : trade.entry - price;
+  ema50 += (price - ema50) * 0.03;
+
+
+  // Update dashboard
+  document.getElementById("price").textContent =
+    price.toFixed(2);
+
+  document.getElementById("rsi").textContent =
+    rsi.toFixed(1);
+
+  document.getElementById("ema20").textContent =
+    ema20.toFixed(2);
+
+  document.getElementById("ema50").textContent =
+    ema50.toFixed(2);
+
+  document.getElementById("balance").textContent =
+    money(balance);
+
+
+  /* -------------------------
+     SIGNAL
+  ------------------------- */
+
+  let signal = "WAIT";
+  let cls = "yellow";
+
+
+  if (rsi < 30 && ema20 > ema50) {
+
+    signal = "BUY SETUP";
+    cls = "green";
+
+  }
+
+  else if (rsi > 70 && ema20 < ema50) {
+
+    signal = "SELL SETUP";
+    cls = "red";
+
+  }
+
+
+  const signalElement =
+    document.getElementById("signal");
+
+  signalElement.textContent = signal;
+
+  signalElement.className =
+    "signal " + cls;
+
+
+  /* -------------------------
+     OPEN TRADE
+  ------------------------- */
+
+  if (trade) {
+
+    let diff;
+
+    if (trade.type === "BUY") {
+
+      diff = price - trade.entry;
+
+    } else {
+
+      diff = trade.entry - price;
+
+    }
+
 
     let pnl = diff * trade.amount;
 
+
     document.getElementById("openTrade").innerHTML =
-        "<b>" + trade.type + "</b> at " + trade.entry.toFixed(2) +
-        "<br>Current Price: " + price.toFixed(2) +
-        "<br>Unrealized P/L: <span class='" +
-        (pnl >= 0 ? "green" : "red") + "'>" +
-        money(pnl) +
-        "</span>" +
-        "<br><button class='reset' onclick='closeTrade()'>CLOSE TRADE</button>";
 
-} else {
+      "<b>" + trade.type + "</b>" +
+
+      "<br>Entry Price: " +
+      trade.entry.toFixed(2) +
+
+      "<br>Current Price: " +
+      price.toFixed(2) +
+
+      "<br>Trade Amount: " +
+      money(trade.amount) +
+
+      "<br>Unrealized P/L: " +
+
+      "<span class='" +
+      (pnl >= 0 ? "green" : "red") +
+      "'>" +
+
+      money(pnl) +
+
+      "</span>" +
+
+      "<br><br>" +
+
+      "<button class='reset' onclick='closeTrade()'>" +
+      "CLOSE TRADE" +
+      "</button>";
+
+  }
+
+  else {
+
     document.getElementById("openTrade").innerHTML =
-        "No open trade.";
-}
-function openTrade(type){
- if(trade){
-   document.getElementById("status").textContent="Close the existing trade first.";
-   return;
- }
+      "No open trade.";
 
- let amount=parseFloat(document.getElementById("amount").value);
+  }
 
- if(!amount || amount<=0){
-   document.getElementById("status").textContent="Enter a valid trade amount.";
-   return;
- }
-
- if(amount>balance){
-   document.getElementById("status").textContent="Trade amount exceeds paper balance.";
-   return;
- }
-
- trade={
-   type:type,
-   entry:price,
-   amount:amount
- };
-
- document.getElementById("status").textContent=
- "Paper "+type+" opened at "+price.toFixed(2);
 }
 
-function closeTrade(){
- if(!trade)return;
 
- let diff=trade.type==="BUY"
-   ? price-trade.entry
-   : trade.entry-price;
+/* -------------------------
+   OPEN TRADE
+------------------------- */
 
- let pnl=diff*trade.amount;
+function openTrade(type) {
 
- balance+=pnl;
+  if (trade) {
 
- history.unshift({
-   type:trade.type,
-   entry:trade.entry,
-   exit:price,
-   pnl:pnl
- });
+    document.getElementById("status").textContent =
+      "⚠️ Close the existing trade first.";
 
- trade=null;
+    return;
+  }
 
- document.getElementById("status").textContent=
- "Trade closed. Paper P/L: "+money(pnl);
 
- renderHistory();
- updateMarket();
+  let amount =
+    parseFloat(
+      document.getElementById("amount").value
+    );
+
+
+  if (!amount || amount <= 0) {
+
+    document.getElementById("status").textContent =
+      "⚠️ Enter a valid trade amount.";
+
+    return;
+  }
+
+
+  if (amount > balance) {
+
+    document.getElementById("status").textContent =
+      "⚠️ Trade amount exceeds paper balance.";
+
+    return;
+  }
+
+
+  trade = {
+
+    type: type,
+
+    entry: price,
+
+    amount: amount
+
+  };
+
+
+  document.getElementById("status").textContent =
+
+    "✅ Paper " +
+    type +
+    " opened at " +
+    price.toFixed(2);
+
+
+  updateMarket();
+
 }
 
-function renderHistory(){
- let html="";
 
- history.forEach(t=>{
-   html+=`
-   <tr>
-   <td>${t.type}</td>
-   <td>${t.entry.toFixed(2)}</td>
-   <td>${t.exit.toFixed(2)}</td>
-   <td class="${t.pnl>=0?"green":"red"}">${money(t.pnl)}</td>
-   </tr>`;
- });
+/* -------------------------
+   CLOSE TRADE
+------------------------- */
 
- document.getElementById("history").innerHTML=html;
+function closeTrade() {
+
+  if (!trade) {
+    return;
+  }
+
+
+  let diff;
+
+
+  if (trade.type === "BUY") {
+
+    diff = price - trade.entry;
+
+  } else {
+
+    diff = trade.entry - price;
+
+  }
+
+
+  let pnl = diff * trade.amount;
+
+
+  balance += pnl;
+
+
+  history.unshift({
+
+    type: trade.type,
+
+    entry: trade.entry,
+
+    exit: price,
+
+    pnl: pnl
+
+  });
+
+
+  trade = null;
+
+
+  document.getElementById("status").textContent =
+
+    "Trade closed. Paper P/L: " +
+    money(pnl);
+
+
+  renderHistory();
+
+  updateMarket();
+
 }
 
-function resetAccount(){
- balance=10000;
- trade=null;
- history=[];
- document.getElementById("status").textContent="Paper account reset to $10,000.";
- renderHistory();
- updateMarket();
+
+/* -------------------------
+   TRADE HISTORY
+------------------------- */
+
+function renderHistory() {
+
+  let html = "";
+
+
+  history.forEach(function(t) {
+
+    html += `
+
+      <tr>
+
+        <td>${t.type}</td>
+
+        <td>${t.entry.toFixed(2)}</td>
+
+        <td>${t.exit.toFixed(2)}</td>
+
+        <td class="${t.pnl >= 0 ? "green" : "red"}">
+
+          ${money(t.pnl)}
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+
+  document.getElementById("history").innerHTML =
+    html;
+
 }
 
-setInterval(updateMarket,3000);
+
+/* -------------------------
+   RESET ACCOUNT
+------------------------- */
+
+function resetAccount() {
+
+  balance = 10000;
+
+  trade = null;
+
+  history = [];
+
+
+  document.getElementById("status").textContent =
+    "Paper account reset to $10,000.";
+
+
+  renderHistory();
+
+  updateMarket();
+
+}
+
+
+/* -------------------------
+   START DASHBOARD
+------------------------- */
+
+setInterval(updateMarket, 3000);
+
 updateMarket();
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>XAUUSD Paper Trading Dashboard</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1020;
+  color: #fff;
+}
+
+header {
+  padding: 20px;
+  background: #111936;
+  border-bottom: 1px solid #26304f;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+small {
+  color: #9aa6c5;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #121a33;
+  border: 1px solid #26304f;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.label {
+  color: #9aa6c5;
+  font-size: 13px;
+}
+
+.value {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.buy {
+  background: #168f5b;
+  color: white;
+}
+
+.sell {
+  background: #c84b4b;
+  color: white;
+}
+
+.reset {
+  background: #394463;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #394463;
+  background: #0b1020;
+  color: white;
+  margin-top: 7px;
+}
+
+.signal {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #26304f;
+  font-size: 13px;
+}
+
+.green {
+  color: #43d17b;
+}
+
+.red {
+  color: #ff6b6b;
+}
+
+.yellow {
+  color: #ffd166;
+}
+
+.notice {
+  padding: 12px;
+  background: #191f35;
+  border-radius: 10px;
+  color: #b9c3dd;
+  margin-bottom: 15px;
+}
+
+.status {
+  color: #b9c3dd;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 19px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .value {
+    font-size: 25px;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>📊 XAUUSD Paper Trading Dashboard</h1>
+  <small>RSI + EMA practice dashboard — paper trading only</small>
+</header>
+
+<div class="container">
+
+  <div class="notice">
+    ⚠️ This dashboard is for learning and paper trading.
+    It does not guarantee profitable trades and does not place real orders.
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="label">XAUUSD Price</div>
+      <div class="value" id="price">2650.00</div>
+    </div>
+
+    <div class="card">
+      <div class="label">RSI (14)</div>
+      <div class="value" id="rsi">50.0</div>
+    </div>
+
+    <div class="card">
+      <div class="label">EMA 20</div>
+      <div class="value" id="ema20">2648.00</div>
+    </div>
+
+    <div class="card">
+      <div class="label">EMA 50</div>
+      <div class="value" id="ema50">2645.00</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Market Signal</div>
+      <div class="signal yellow" id="signal">WAIT</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Paper Balance</div>
+      <div class="value" id="balance">$10,000.00</div>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div class="card">
+    <h3>💰 Paper Trade</h3>
+
+    <label>Trade Amount</label>
+
+    <input
+      id="amount"
+      type="number"
+      value="100"
+      min="1"
+      step="1"
+    >
+
+    <br><br>
+
+    <button class="buy" onclick="openTrade('BUY')">
+      BUY
+    </button>
+
+    <button class="sell" onclick="openTrade('SELL')">
+      SELL
+    </button>
+
+    <button class="reset" onclick="resetAccount()">
+      RESET ACCOUNT
+    </button>
+
+    <p id="status" class="status">
+      Ready for paper trading.
+    </p>
+  </div>
+
+  <br>
+
+  <div class="card">
+    <h3>📌 Open Trade</h3>
+
+    <div id="openTrade">
+      No open trade.
+    </div>
+  </div>
+
+  <br>
+
+  <div class="card">
+    <h3>📜 Trade History</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Entry</th>
+          <th>Exit</th>
+          <th>P/L</th>
+        </tr>
+      </thead>
+
+      <tbody id="history"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+
+let price = 2650;
+let rsi = 50;
+let ema20 = 2648;
+let ema50 = 2645;
+
+let balance = 10000;
+
+let trade = null;
+
+let history = [];
+
+
+/* -------------------------
+   MONEY FORMAT
+------------------------- */
+
+function money(number) {
+  return "$" + number.toFixed(2);
+}
+
+
+/* -------------------------
+   MARKET UPDATE
+------------------------- */
+
+function updateMarket() {
+
+  // Simulated XAUUSD price movement
+  price += (Math.random() - 0.48) * 4;
+
+  // Simulated RSI movement
+  rsi += (Math.random() - 0.5) * 5;
+
+  rsi = Math.max(20, Math.min(80, rsi));
+
+
+  // EMA calculations
+  ema20 += (price - ema20) * 0.08;
+
+  ema50 += (price - ema50) * 0.03;
+
+
+  // Update dashboard
+  document.getElementById("price").textContent =
+    price.toFixed(2);
+
+  document.getElementById("rsi").textContent =
+    rsi.toFixed(1);
+
+  document.getElementById("ema20").textContent =
+    ema20.toFixed(2);
+
+  document.getElementById("ema50").textContent =
+    ema50.toFixed(2);
+
+  document.getElementById("balance").textContent =
+    money(balance);
+
+
+  /* -------------------------
+     SIGNAL
+  ------------------------- */
+
+  let signal = "WAIT";
+  let cls = "yellow";
+
+
+  if (rsi < 30 && ema20 > ema50) {
+
+    signal = "BUY SETUP";
+    cls = "green";
+
+  }
+
+  else if (rsi > 70 && ema20 < ema50) {
+
+    signal = "SELL SETUP";
+    cls = "red";
+
+  }
+
+
+  const signalElement =
+    document.getElementById("signal");
+
+  signalElement.textContent = signal;
+
+  signalElement.className =
+    "signal " + cls;
+
+
+  /* -------------------------
+     OPEN TRADE
+  ------------------------- */
+
+  if (trade) {
+
+    let diff;
+
+    if (trade.type === "BUY") {
+
+      diff = price - trade.entry;
+
+    } else {
+
+      diff = trade.entry - price;
+
+    }
+
+
+    let pnl = diff * trade.amount;
+
+
+    document.getElementById("openTrade").innerHTML =
+
+      "<b>" + trade.type + "</b>" +
+
+      "<br>Entry Price: " +
+      trade.entry.toFixed(2) +
+
+      "<br>Current Price: " +
+      price.toFixed(2) +
+
+      "<br>Trade Amount: " +
+      money(trade.amount) +
+
+      "<br>Unrealized P/L: " +
+
+      "<span class='" +
+      (pnl >= 0 ? "green" : "red") +
+      "'>" +
+
+      money(pnl) +
+
+      "</span>" +
+
+      "<br><br>" +
+
+      "<button class='reset' onclick='closeTrade()'>" +
+      "CLOSE TRADE" +
+      "</button>";
+
+  }
+
+  else {
+
+    document.getElementById("openTrade").innerHTML =
+      "No open trade.";
+
+  }
+
+}
+
+
+/* -------------------------
+   OPEN TRADE
+------------------------- */
+
+function openTrade(type) {
+
+  if (trade) {
+
+    document.getElementById("status").textContent =
+      "⚠️ Close the existing trade first.";
+
+    return;
+  }
+
+
+  let amount =
+    parseFloat(
+      document.getElementById("amount").value
+    );
+
+
+  if (!amount || amount <= 0) {
+
+    document.getElementById("status").textContent =
+      "⚠️ Enter a valid trade amount.";
+
+    return;
+  }
+
+
+  if (amount > balance) {
+
+    document.getElementById("status").textContent =
+      "⚠️ Trade amount exceeds paper balance.";
+
+    return;
+  }
+
+
+  trade = {
+
+    type: type,
+
+    entry: price,
+
+    amount: amount
+
+  };
+
+
+  document.getElementById("status").textContent =
+
+    "✅ Paper " +
+    type +
+    " opened at " +
+    price.toFixed(2);
+
+
+  updateMarket();
+
+}
+
+
+/* -------------------------
+   CLOSE TRADE
+------------------------- */
+
+function closeTrade() {
+
+  if (!trade) {
+    return;
+  }
+
+
+  let diff;
+
+
+  if (trade.type === "BUY") {
+
+    diff = price - trade.entry;
+
+  } else {
+
+    diff = trade.entry - price;
+
+  }
+
+
+  let pnl = diff * trade.amount;
+
+
+  balance += pnl;
+
+
+  history.unshift({
+
+    type: trade.type,
+
+    entry: trade.entry,
+
+    exit: price,
+
+    pnl: pnl
+
+  });
+
+
+  trade = null;
+
+
+  document.getElementById("status").textContent =
+
+    "Trade closed. Paper P/L: " +
+    money(pnl);
+
+
+  renderHistory();
+
+  updateMarket();
+
+}
+
+
+/* -------------------------
+   TRADE HISTORY
+------------------------- */
+
+function renderHistory() {
+
+  let html = "";
+
+
+  history.forEach(function(t) {
+
+    html += `
+
+      <tr>
+
+        <td>${t.type}</td>
+
+        <td>${t.entry.toFixed(2)}</td>
+
+        <td>${t.exit.toFixed(2)}</td>
+
+        <td class="${t.pnl >= 0 ? "green" : "red"}">
+
+          ${money(t.pnl)}
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+
+  document.getElementById("history").innerHTML =
+    html;
+
+}
+
+
+/* -------------------------
+   RESET ACCOUNT
+------------------------- */
+
+function resetAccount() {
+
+  balance = 10000;
+
+  trade = null;
+
+  history = [];
+
+
+  document.getElementById("status").textContent =
+    "Paper account reset to $10,000.";
+
+
+  renderHistory();
+
+  updateMarket();
+
+}
+
+
+/* -------------------------
+   START DASHBOARD
+------------------------- */
+
+setInterval(updateMarket, 3000);
+
+updateMarket();
+
 </script>
 
 </body>
