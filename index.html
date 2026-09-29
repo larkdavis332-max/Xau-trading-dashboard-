@@ -147,13 +147,19 @@ function updateMarket(){
  let signal="WAIT";
  let cls="yellow";
 
- if(rsi<30 && ema20>ema50){
-   signal="BUY SETUP";
-   cls="green";
- }
- else if(rsi>70 && ema20<ema50){
-   signal="SELL SETUP";
-   if(trade){
+if(rsi<30 && ema20>ema50){
+  signal="BUY SETUP";
+  cls="green";
+}
+else if(rsi>70 && ema20<ema50){
+  signal="SELL SETUP";
+  cls="red";
+}
+
+document.getElementById("signal").textContent=signal;
+document.getElementById("signal").className="signal "+cls;
+
+if(trade){
   let diff=trade.type==="BUY"
     ? price-trade.entry
     : trade.entry-price;
@@ -166,9 +172,25 @@ function updateMarket(){
     "<br>Unrealized P/L: <span class='"+(pnl>=0?"green":"red")+"'>"+
     money(pnl)+"</span>"+
     "<br><br><button class='reset' onclick='closeTrade()'>CLOSE TRADE</button>";
+if (trade) {
+    let diff = trade.type === "BUY"
+        ? price - trade.entry
+        : trade.entry - price;
+
+    let pnl = diff * trade.amount;
+
+    document.getElementById("openTrade").innerHTML =
+        "<b>" + trade.type + "</b> at " + trade.entry.toFixed(2) +
+        "<br>Current Price: " + price.toFixed(2) +
+        "<br>Unrealized P/L: <span class='" +
+        (pnl >= 0 ? "green" : "red") + "'>" +
+        money(pnl) +
+        "</span>" +
+        "<br><button class='reset' onclick='closeTrade()'>CLOSE TRADE</button>";
+
 } else {
-  document.getElementById("openTrade").textContent="No open trade.";
-}  
+    document.getElementById("openTrade").innerHTML =
+        "No open trade.";
 }
 function openTrade(type){
  if(trade){
